@@ -42,8 +42,24 @@ const loadUser = async () => {
     }
   }
 }
+const validateForm = () => {
+  const errors = []
+
+  if (!form.value.username) errors.push('Username must be set');
+  if (form.value.username.length < 8) errors.push('Username must be at least 8 characters long');
+
+  if (!form.value.password) errors.push('Password must be set');
+  if (form.value.password.length < 8) errors.push('Password must be at least 8 characters long');
+
+  if (!Object.keys(Role).includes(form.value.role)) errors.push('Please select a role');
+  errors.forEach(e => ElMessage.error(e));
+
+  return errors.length === 0;
+}
 
 const handleSubmit = async () => {
+  if (!validateForm()) return;
+
   loading.value = true
   try {
     if (isEdit.value) {
@@ -60,13 +76,15 @@ const handleSubmit = async () => {
     }
     router.push('/users')
   } catch (error) {
-    let message = isEdit.value ? 'Failed to update user' : 'Failed to create user'
-
     if (error instanceof AxiosError) {
-      message += `. ${error.response?.data.message}`
-    }
+      const errors = error.response?.data.message
 
-    ElMessage.error(message)
+      if (Array.isArray(errors)) {
+        errors.forEach((err) => ElMessage.error(err[0].toUpperCase() + err.slice(1)))
+      } else {
+        ElMessage.error(errors)
+      }
+    }
   } finally {
     loading.value = false
   }

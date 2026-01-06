@@ -13,6 +13,7 @@ const api = axios.create({
 api.interceptors.response.use(null, (error) => {
   if (error instanceof AxiosError && error.response?.status === 401) {
     storage.access_token.value = '';
+    storage.role.value = null;
   }
 
   return Promise.reject(error);
