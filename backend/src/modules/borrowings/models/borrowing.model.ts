@@ -19,11 +19,11 @@ export class Borrowing extends BaseEntity {
 
   // relations
 
-  @ManyToOne(() => User, (user) => user.borrowings)
+  @ManyToOne(() => User, user => user.borrowings, { onDelete: 'CASCADE' })
   @JoinColumn()
   user: User;
 
-  @ManyToOne(() => Book)
+  @ManyToOne(() => Book, { onDelete: 'CASCADE' })
   @JoinColumn()
   book: Book;
 }

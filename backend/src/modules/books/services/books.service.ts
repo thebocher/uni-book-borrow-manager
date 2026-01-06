@@ -71,7 +71,7 @@ export class BooksService {
   async delete(id: number): Promise<void> {
     const book = await this.findById(id);
 
-    if (book.borrowed.length > 0) {
+    if (book.borrowed.filter(b => !b.isReturned).length > 0) {
       throw new BadRequestException('Cannot delete a borrowed book');
     }
 
