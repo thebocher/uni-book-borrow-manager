@@ -41,7 +41,7 @@ const loadBooks = async () => {
   try {
     const response = await booksApi.getAll({
       page: pagination.value.currentPage,
-      pageSize: pagination.value.pageSize,
+      limit: pagination.value.pageSize,
     })
     const meta = response.data.meta;
 

@@ -32,7 +32,7 @@ const loadAuthors = async () => {
   }
 }
 
-const loadBook = async () => {s
+const loadBook = async () => {
   if (route.params.id && route.params.id !== 'create') {
     isEdit.value = true
     loading.value = true
@@ -67,6 +67,7 @@ const validateForm = () => {
 
   return errors.length === 0;
 }
+
 const handleSubmit = async () => {
   if (!validateForm()) return;
 

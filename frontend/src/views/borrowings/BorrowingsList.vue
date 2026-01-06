@@ -45,7 +45,7 @@ const loadBorrowings = async () => {
   try {
     const response = await borrowingsApi.getAll({
       page: pagination.value.currentPage,
-      pageSize: pagination.value.pageSize,
+      limit: pagination.value.pageSize,
     });
     const meta = response.data.meta;
 

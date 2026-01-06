@@ -29,7 +29,7 @@ api.interceptors.request.use((config) => {
 
 // Authors API
 export const authorsApi = {
-  getAll: (params: {page: number, pageSize: number}) => api.get('/authors', { params }),
+  getAll: (params: {page: number, limit: number}) => api.get('/authors', { params }),
   getAllFlat: () => api.get('/authors/flat'),
   getById: (id: number) => api.get(`/authors/${id}`),
   create: (data: { name: string; bio: string }) => api.post('/authors', data),
@@ -39,7 +39,7 @@ export const authorsApi = {
 
 // Books API
 export const booksApi = {
-  getAll: (params: {page: number, pageSize: number}) => api.get('/books', { params }),
+  getAll: (params: {page: number, limit: number}) => api.get('/books', { params }),
   getAllFlat: () => api.get('/books/flat'),
   getById: (id: number) => api.get(`/books/${id}`),
   create: (data: { title: string; description: string; authorIds: number[]; stock: number }) =>
@@ -53,7 +53,7 @@ export const booksApi = {
 
 // Borrowings API
 export const borrowingsApi = {
-  getAll: (params: {page: number, pageSize: number}) => api.get('/borrowings', { params }),
+  getAll: (params: {page: number, limit: number}) => api.get('/borrowings', { params }),
   getById: (id: number) => api.get(`/borrowings/${id}`),
   add: (data: { userId: number; bookId: number }) => api.post('/borrowings/add', data),
   return: (data: { userId: number; bookId: number }) => api.post('/borrowings/return', data),
@@ -61,7 +61,7 @@ export const borrowingsApi = {
 
 // Users API
 export const usersApi = {
-  getAll: (params: {page: number, pageSize: number}) => api.get('/users', { params }),
+  getAll: (params: {page: number, limit: number}) => api.get('/users', { params }),
   getAllFlat: () => api.get('/users/flat'),
   getById: (id: number) => api.get(`/users/${id}`),
   create: (data: { username: string; password: string }) => api.post('/users', data),

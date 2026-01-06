@@ -40,7 +40,7 @@ const loadAuthors = async () => {
   try {
     const response = await authorsApi.getAll({
       page: pagination.value.currentPage,
-      pageSize: pagination.value.pageSize,
+      limit: pagination.value.pageSize,
     });
     const meta = response.data.meta;
 

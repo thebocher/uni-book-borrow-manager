@@ -84,17 +84,16 @@ export class BooksService {
   ): Promise<GetBookDto> {
     const book = await this.findById(id);
 
-    let authors: Author[] | undefined;
-    if (dto.authorIds != null) {
-      authors = await this.authorService.findByIds(dto.authorIds);
-    }
-
     const updated = this.dataSource.manager.merge(Book, book, {
       title: dto.title,
       description: dto.description,
-      authors,
       stock: dto.stock
     });
+
+    if (dto.authorIds != null) {
+      const authors = await this.authorService.findByIds(dto.authorIds);
+      updated.authors = authors;
+    }
 
     const merged = await this.dataSource.manager.save(updated);
 

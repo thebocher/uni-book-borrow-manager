@@ -6,7 +6,7 @@ import { CreateAuthorDto } from '../dtos/create-author.dto';
 import { GetAuthorDto } from '../dtos/get-author.dto';
 import { GetAuthorListItemDto } from '../dtos/get-author-list-item.dto';
 import PaginationDto from 'src/common/dtos/pagination';
-import { paginate } from 'src/common/paginate';
+import { IPaginationOptions, paginate } from 'src/common/paginate';
 
 @Injectable()
 export class AuthorService {
@@ -55,7 +55,9 @@ export class AuthorService {
 
   async findAllDto(dto: PaginationDto) {
     const qb = this.getQueryBuilder();
-    return paginate(qb, a => GetAuthorListItemDto.toDto(a), dto);
+    const options = {page: dto.page, limit: dto.limit} as IPaginationOptions
+    console.log(dto);
+    return paginate(qb, a => GetAuthorListItemDto.toDto(a), options);
   }
 
   async findAllFlatDto() {
